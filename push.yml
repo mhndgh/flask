@@ -1,29 +1,29 @@
 name: Push
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+        - main
 
 jobs:
-    docker:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Set up docker buildx
-              uses: docker/setup-buildx-action@v3
+      - name: Set up docker buildx
+        uses: docker/setup-buildx-action@v3
 
-            - name: Login to Ducker Hub
-              uses: docker/login-actions@v3
-              with:
-                username: ${{ secrets.DOUCKERHUB_USERNAME }}
-                password: ${{ secrets.DOUCKERHUB_TOKEN }}
+      - name: Login to Ducker Hub
+        uses: docker/login-actions@v3
+        with:
+          username: ${{ secrets.DOUCKERHUB_USERNAME }}
+          password: ${{ secrets.DOUCKERHUB_TOKEN }}
             
-            - name: Build and Push
-              uses: docker/build-push-action@v3
-              with:
-                push: true
-                tags: |
-                    mhndgh/flask:latest
-                    mhndgh/flask:${{ github.sha }}
+      - name: Build and Push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: |
+            mhndgh/flask:latest
+            mhndgh/flask:${{ github.sha }}
